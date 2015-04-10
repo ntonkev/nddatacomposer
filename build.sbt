@@ -21,7 +21,8 @@ libraryDependencies ++= Seq(
   "org.json4s"          %% "json4s-native"      % "3.2.10",
   "com.typesafe.scala-logging" %% "scala-logging-slf4j" % "2.1.2",
   "org.scalatest"       %% "scalatest"          % "2.2.2",
-  "org.mockito"          % "mockito-all"        % "1.9.5" % "test"
+  "org.mockito"          % "mockito-all"        % "1.9.5" % "test",
+  "com.gettyimages"     %% "spray-swagger"      % "0.5.0"
 )
 
 

@@ -1,19 +1,31 @@
 /**
  * Created by nikolatonkev on 15-04-03.
  */
-import akka.actor.ActorSystem
-import spray.routing.SimpleRoutingApp
 
-object NDDataComposer extends App with SimpleRoutingApp {
-  implicit val actorSystem = ActorSystem()
+import Web.RoutingVendorActor
+import akka.actor.{ActorRef, ActorSystem, Props}
+import akka.io.IO
+import akka.pattern.ask
+import akka.util.Timeout
+import scala.concurrent.duration._
+import spray.can.Http
 
-  startServer(interface = "localhost", port=8080){
-    get {
-      path("hello"){
-        complete{
-          "Hello world!"
-        }
-      }
+
+
+object NDDataComposer extends App {
+
+  implicit val system = ActorSystem()
+
+  val service = system.actorOf(Props[RoutingVendorActor])
+
+  /*
+  val ioListener = actor("ioListener")(new Act {
+    become {
+      case b @ Bound(connection) => println(b.toString)
     }
-  }
+  })
+  */
+
+  implicit val timeout = Timeout(5.seconds)
+  IO(Http) ? Http.Bind(service, interface = "localhost", port = 8080)
 }
