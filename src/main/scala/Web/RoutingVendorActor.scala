@@ -23,29 +23,27 @@ class RoutingVendorActor extends HttpServiceActor {
   }
 
   /* swaggerService.routes ~ */
-  def receive = runRoute(tests.routes /*~ swaggerService.routes ~
-
+  def receive = runRoute(tests.routes ~ swaggerService.routes ~
     get {
       pathPrefix("") { pathEndOrSingleSlash {
         getFromResource("swagger-ui/index.html")
       }
       } ~
         getFromResourceDirectory("swagger-ui")
-    }*/)
+    })
 
 
-  /*
+
   val swaggerService = new SwaggerHttpService {
     override def apiTypes = Seq(typeOf[TestService])
     override def apiVersion = "2.0"
     override def baseUrl = "http://localhost:8080"
     override def docsPath = "api-docs"
     override def actorRefFactory = context
-    override def apiInfo = Some(new ApiInfo("Spray-Swagger Sample", "A sample petstore service using spray and spray-swagger.", "TOC Url", "Michael Hamrah @mhamrah", "Apache V2", "http://www.apache.org/licenses/LICENSE-2.0"))
-
-    //authorizations, not used
+    override def apiInfo = Some(new ApiInfo("Nous Dynamics Data Composer API", "A sample service using spray and spray-swagger.", "TOC Url", "nikola_tonkev@yahoo.com", "Apache V2", "http://www.apache.org/licenses/LICENSE-2.0"))
+    //authorizations, not used for now :)
   }
-  */
+
 
 
 }
