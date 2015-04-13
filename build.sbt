@@ -10,6 +10,11 @@ resolvers += "Typesafe Repository" at "http://repo.typesafe.com/typesafe/release
 
 val sprayVersion = "1.3.3"
 
+javacOptions ++= Seq("-Xlint:unchecked", "-Xlint:deprecation")
+
+scalacOptions ++= Seq(
+  "-Ywarn-value-discard"
+)
 
 libraryDependencies ++= Seq(
   "com.typesafe.akka"   %% "akka-actor"        % "2.3.9",
