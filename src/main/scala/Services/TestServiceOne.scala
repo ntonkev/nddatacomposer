@@ -15,15 +15,13 @@ trait TestServiceOne extends HttpService{
 
   val routes = helloRoute
 
-//  @ApiOperation(value = "Get a greating", notes = "", response=classOf[String], nickname = "hello", httpMethod = "GET")
-//@ApiOperation(value = "Get a greating", notes = "", nickname = "hello", httpMethod = "GET", produces = "text/plain; charset=UTF-8", response = classOf[String])
-//@ApiOperation(value = "TESTS APIs", notes = "", nickname = "Tets")
-//  @ApiResponses(Array(
-//    new ApiResponse(code = 200, message = "Get a greating successful executed"),
-//    new ApiResponse(code = 404, message = "Greating not found"),
-//    new ApiResponse(code = 400, message = "Invalid greating request")
-//  ))
-  @ApiOperation(value = "Get a greating", notes = "", nickname = "hello", httpMethod = "GET", produces = "text/plain; charset=UTF-8", response = classOf[String])
+  @ApiOperation(value = "Get a greating", notes = "", response=classOf[String], nickname = "hello", httpMethod = "GET")
+  //@ApiOperation(value = "Get a greating", notes = "", nickname = "hello", httpMethod = "GET", produces = "text/plain; charset=UTF-8", response = classOf[String])
+  @ApiResponses(Array(
+    new ApiResponse(code = 200, message = "Get a greating successful executed"),
+    new ApiResponse(code = 404, message = "Greating not found"),
+    new ApiResponse(code = 400, message = "Invalid greating request")
+  ))
   def helloRoute = pathPrefix("tests"){
       pathEnd {
         complete("tests")

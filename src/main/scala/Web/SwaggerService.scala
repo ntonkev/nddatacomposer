@@ -15,11 +15,11 @@ trait SwaggerService extends HttpService {
     getFromResourceDirectory("swagger-ui")
   }
 
-
-
-  path("swagger-ui") {
-        getFromResource("swagger-ui/index.html")
-      } ~
-      getFromResourceDirectory("swagger-ui")
+//
+//
+//  path("swagger-ui") {
+//        getFromResource("swagger-ui/index.html")
+//      } ~
+//      getFromResourceDirectory("swagger-ui")
 
 }
