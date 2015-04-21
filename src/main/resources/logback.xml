@@ -6,7 +6,7 @@
         </encoder>
     </appender>
 
-    <logger name="com.mlh.sprayswaggersample" level="debug" additivity="false">
+    <logger name="nddatacomposer" level="debug" additivity="false">
         <appender-ref ref="console" />
     </logger>
 
