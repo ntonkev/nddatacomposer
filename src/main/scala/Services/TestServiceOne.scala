@@ -8,53 +8,24 @@ import spray.routing.{HttpService}
  * Created by nikolatonkev on 15-04-08.
  */
 
-@Api(value = "tests", description = "Tests apis.", position = 1)
+@Api(value = "tsone", description = "Tests API with simple routing.", position = 1)
 trait TestServiceOne extends HttpService{
 
   //import Json4sSupport._
 
-  val routes = tests
+  val routes = tsone
 
-  @ApiOperation(value = "Get a greating", notes = "", response=classOf[String], nickname = "", httpMethod = "GET")
+  @ApiOperation(value = "Main route entry point", notes = "", produces = "text/plain; charset=UTF-8", response=classOf[String], nickname = "", httpMethod = "GET")
   @ApiResponses(Array(
-    new ApiResponse(code = 200, message = "Get a greating successful executed"),
-    new ApiResponse(code = 404, message = "Greating not found"),
-    new ApiResponse(code = 400, message = "Invalid greating request")
+    new ApiResponse(code = 200, message = "Main route entry point successful executed"),
+    new ApiResponse(code = 404, message = "Main route entry point not found"),
+    new ApiResponse(code = 400, message = "Invalid main route entry point request")
   ))
-  def tests = pathPrefix("tests"){
-      pathEndOrSingleSlash{
-        complete("tests")
-      } ~
-      path("one") {
-        get {
-          complete("hello TestServiceOne")
-        }
-      }
-  }
-
-  /*/
-  val routes = tests
-
-  @ApiOperation(value = "Main route", notes = "", response=classOf[String], nickname = "tests", httpMethod = "GET")
-  @ApiResponses(Array(
-    new ApiResponse(code = 200, message = "Get a greating successful executed"),
-    new ApiResponse(code = 404, message = "Greating not found"),
-    new ApiResponse(code = 400, message = "Invalid greating request")
-  ))
-  def tests = path("tests"){
+  def tsone = path("tsone") {
     get {
-      complete("tests response")
+      complete("TestServiceOne main route entry point!")
     }
   }
-
-  def one = path("tests"){
-    path("one"){
-      get {
-        complete("one response")
-      }
-    }
-  }
-  */
 
 
 }
