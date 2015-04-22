@@ -1,6 +1,6 @@
 package Services
 
-import com.wordnik.swagger.annotations.{ApiResponses, ApiResponse, ApiOperation, Api}
+import com.wordnik.swagger.annotations._
 import spray.routing.{HttpService}
 
 
@@ -16,6 +16,9 @@ trait TestServiceOne extends HttpService{
   val routes = tsone
 
   @ApiOperation(value = "Main route entry point", notes = "", produces = "text/plain; charset=UTF-8", response=classOf[String], nickname = "", httpMethod = "GET")
+  @ApiImplicitParams(Array(
+    new ApiImplicitParam(name = "Id", value = "Id request", required = true, dataType = "NDApiRequest", paramType = "NDApiRequest[String]")
+  ))
   @ApiResponses(Array(
     new ApiResponse(code = 200, message = "Main route entry point successful executed"),
     new ApiResponse(code = 404, message = "Main route entry point not found"),
