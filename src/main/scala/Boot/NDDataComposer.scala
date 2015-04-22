@@ -5,7 +5,6 @@ package Boot
  */
 
 import Web.RoutingVendorActor
-import akka.actor.ActorDSL._
 import akka.pattern.ask
 import akka.actor._
 import akka.io.IO
@@ -19,14 +18,7 @@ object NDDataComposer extends App {
 
   val service = system.actorOf(Props[RoutingVendorActor]) //"nous-dynamics-data-composer-service"
 
-//  val ioListener = actor("ioListener")(new Act with ActorLogging {
-//    become {
-//      case b @ Bound(connection) => log.info(b.toString)
-//    }
-//  })
-
   implicit val timeout = Timeout(15.seconds)
   IO(Http) ? Http.Bind(service, interface = "localhost", port = 8080)
-  //IO(Http).tell(Http.Bind(service, interface = "localhost", port = 8080), ioListener)
 
 }

@@ -4,24 +4,11 @@
 
 package Web
 
-import Services.TestServiceOne
-//import akka.actor.{ActorRef, Props, Actor, ActorLogging}
-//import akka.io.IO
-//import com.gettyimages.spray.swagger.SwaggerHttpService
-//import com.wordnik.swagger.model.ApiInfo
-//import spray.can.Http
-//import spray.routing.{HttpServiceActor}
-//import scala.reflect.runtime.universe._
-//import com.wordnik.swagger.model.ApiInfo
+import Services.{TestServiceTwo, TestServiceOne}
 
 import akka.actor.ActorLogging
 import spray.routing._
-import com.gettyimages.spray.swagger._
 import scala.reflect.runtime.universe._
-import com.wordnik.swagger.model.ApiInfo
-import com.wordnik.swagger.annotations.Api
-import scala.reflect.runtime.universe
-import spray.routing.Directive.pimpApply
 import com.wordnik.swagger.model.ApiInfo
 import com.gettyimages.spray.swagger.SwaggerHttpService
 
@@ -32,7 +19,7 @@ class RoutingVendorActor extends HttpServiceActor with SwaggerService with Actor
   override def actorRefFactory = context
 
   val swaggerService = new SwaggerHttpService {
-    override def apiTypes = Seq(typeOf[TestServiceOne])
+    override def apiTypes = Seq(typeOf[TestServiceOne], typeOf[TestServiceTwo])
     override def apiVersion = "2.0"
     override def baseUrl = "/"
     override def docsPath = "api-docs"
@@ -46,6 +33,10 @@ class RoutingVendorActor extends HttpServiceActor with SwaggerService with Actor
     def actorRefFactory = context
   }
 
-  def receive = runRoute(testOne.routes ~ swaggerService.routes ~ swagger)
+  val testTwo = new TestServiceTwo {
+    def actorRefFactory = context
+  }
+
+  def receive = runRoute(testOne.routes ~ testTwo.routes ~ swaggerService.routes ~ swagger)
 
 }
