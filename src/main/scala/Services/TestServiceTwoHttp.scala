@@ -8,7 +8,7 @@ import spray.routing.HttpService
  * Created by nikolatonkev on 15-04-21.
  */
 @Api(value = "/tstwo", description = "Tests API with path prefix.", position = 2)
-trait TestServiceTwo extends HttpService {
+trait TestServiceTwoHttp extends HttpService {
 
   val routes = tstwo
 

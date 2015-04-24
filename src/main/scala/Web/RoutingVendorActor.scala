@@ -4,7 +4,7 @@
 
 package Web
 
-import Services.{TestServiceTwo, TestServiceOne}
+import Services.{TestServiceTwoHttp, TestServiceOneHttp}
 
 import akka.actor.ActorLogging
 import spray.routing._
@@ -19,7 +19,7 @@ class RoutingVendorActor extends HttpServiceActor with SwaggerService with Actor
   override def actorRefFactory = context
 
   val swaggerService = new SwaggerHttpService {
-    override def apiTypes = Seq(typeOf[TestServiceOne], typeOf[TestServiceTwo])
+    override def apiTypes = Seq(typeOf[TestServiceOneHttp], typeOf[TestServiceTwoHttp])
     override def apiVersion = "2.0"
     override def baseUrl = "/"
     override def docsPath = "api-docs"
@@ -29,11 +29,11 @@ class RoutingVendorActor extends HttpServiceActor with SwaggerService with Actor
   }
 
 
-  val testOne = new TestServiceOne {
+  val testOne = new TestServiceOneHttp {
     def actorRefFactory = context
   }
 
-  val testTwo = new TestServiceTwo {
+  val testTwo = new TestServiceTwoHttp {
     def actorRefFactory = context
   }
 

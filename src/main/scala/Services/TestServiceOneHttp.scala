@@ -1,5 +1,6 @@
 package Services
 
+import akka.actor.{ActorSystem, Props}
 import com.wordnik.swagger.annotations._
 import spray.routing.{HttpService}
 
@@ -9,11 +10,15 @@ import spray.routing.{HttpService}
  */
 
 @Api(value = "tsone", description = "Tests API with simple routing.", position = 1)
-trait TestServiceOne extends HttpService{
+trait TestServiceOneHttp extends HttpService{
 
   //import Json4sSupport._
+  implicit val actorSystem = ActorSystem()
+  import actorSystem.dispatcher
 
   val routes = tsone
+
+  lazy val service = actorSystem.actorOf(Props(new ServiceOne))
 
   @ApiOperation(value = "Main route entry point", notes = "", produces = "text/plain; charset=UTF-8", response=classOf[String], nickname = "", httpMethod = "GET")
   @ApiImplicitParams(Array(
@@ -26,7 +31,8 @@ trait TestServiceOne extends HttpService{
   ))
   def tsone = path("tsone") {
     get {
-      complete("TestServiceOne main route entry point!")
+      ctx => service ! ctx
+      //complete("TestServiceOne main route entry point!")
     }
   }
 
